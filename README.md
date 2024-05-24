@@ -9,9 +9,7 @@ A React Native Contact Manager App in iOS &amp; Android
 
 - In a production environment, I would organize styles into separate files and establish a theme for consistent styling across the codebase.
 
-- Due to the two-hour time constraint for this task, these improvements were not implemented.
-
-- If the user has contacts with profile picture, that will be shown in the list and details screen.
+- If the user has a contact with contact photo, that will be shown in the list and details screen.
 
 - However, Updating the contact photo is currently not functional, because of limitations in the npm package used. In a real-world scenario, we could patch the npm package to resolve this issue, but this was beyond the scope of this task.
 
