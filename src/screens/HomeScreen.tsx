@@ -42,7 +42,6 @@ const HomeScreen: React.FC = () => {
       ) {
         loadContacts();
       }
-      console.log({ granted });
     } else {
       loadContacts();
     }

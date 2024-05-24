@@ -46,8 +46,8 @@ const ContactDetailsScreen: React.FC = () => {
       emailAddresses: [{ label: 'work', email }],
       phoneNumbers: [{ label: 'mobile', number: phone }],
       thumbnailPath: photo,
+      hasThumbnail: photo ? true : false,
     };
-
     Contacts.updateContact(updatedContact)
       .then(() => {
         navigation.goBack();

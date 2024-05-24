@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { isIos } from './utils';
 
 const globalStyles = StyleSheet.create({
   primaryButton: {
@@ -15,11 +16,12 @@ const globalStyles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#F6FDE9',
-    height: 100,
+    height: isIos ? 100 : 50,
   },
   headerText: {
     fontSize: 20,
     fontFamily: 'Agrandir, sans-serif',
+    fontWeight: 'bold',
   },
   input: {
     borderWidth: 1,

@@ -37,6 +37,7 @@ const AddContactScreen: React.FC = () => {
       emailAddresses: [{ label: 'work', email }],
       phoneNumbers: [{ label: 'mobile', number: phone }],
       thumbnailPath: photo,
+      hasThumbnail: photo ? true : false,
     };
 
     Contacts.addContact(newContact)
