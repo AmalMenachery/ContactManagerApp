@@ -12,6 +12,7 @@ import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import globalStyles from '../common/globalStyles';
+import { Colors } from '../common/colors';
 
 type RootStackParamList = {
   Home: undefined;
@@ -73,6 +74,12 @@ const ContactDetailsScreen: React.FC = () => {
     });
   };
 
+  // As this is an MVP, I did not bother to create Text, Button & Image Components in the components folder.
+  // I would have created separate files for styles, and created a Theme for production codebase.
+  // We don't have time in the 2 hours estimation given for the Task.
+  // Updating the contact photo doesn't work due to the package, shortcomings.
+  // We could patch the npm package in the real use-case, however that would too much in this context
+
   return (
     <View style={globalStyles.container}>
       <TextInput
@@ -80,6 +87,7 @@ const ContactDetailsScreen: React.FC = () => {
         placeholder="Name"
         value={name}
         onChangeText={setName}
+        placeholderTextColor={Colors.LIGHTER_GREY}
       />
       <TextInput
         style={globalStyles.input}
@@ -87,6 +95,7 @@ const ContactDetailsScreen: React.FC = () => {
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
+        placeholderTextColor={Colors.LIGHTER_GREY}
       />
       <TextInput
         style={globalStyles.input}

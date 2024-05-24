@@ -1,21 +1,22 @@
 import { StyleSheet } from 'react-native';
 import { isIos } from './utils';
+import { Colors } from './colors';
 
 const globalStyles = StyleSheet.create({
   primaryButton: {
-    backgroundColor: '#067A46',
+    backgroundColor: Colors.PRIMARY,
     padding: 10,
     borderRadius: 5,
   },
   primaryButtonText: {
-    color: '#fff',
+    color: Colors.WHITE,
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 16,
     fontFamily: 'Agrandir, sans-serif',
   },
   header: {
-    backgroundColor: '#F6FDE9',
+    backgroundColor: Colors.LIGHT_GREEN,
     height: isIos ? 100 : 50,
   },
   headerText: {
@@ -30,11 +31,12 @@ const globalStyles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 5,
     fontFamily: 'Agrandir, sans-serif',
+    color: Colors.LIGHTER_GREY_60,
   },
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.WHITE,
   },
   mT20: { marginTop: 20 },
   mL10: { marginLeft: 10 },

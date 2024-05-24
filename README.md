@@ -2,7 +2,26 @@
 
 A React Native Contact Manager App in iOS &amp; Android
 
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+
+# Comments for Reviewers
+
+- This project is a minimal viable product (MVP), so components for Text, Button, and Image are not separated into the components folder.
+
+- In a production environment, I would organize styles into separate files and establish a theme for consistent styling across the codebase.
+
+- Due to the two-hour time constraint for this task, these improvements were not implemented.
+
+- If the user has contacts with profile picture, that will be shown in the list and details screen.
+
+- However, Updating the contact photo is currently not functional, because of limitations in the npm package used. In a real-world scenario, we could patch the npm package to resolve this issue, but this was beyond the scope of this task.
+
+- I did not download the 'Agrandir, sans-serif' font for this project(so the styles for font won't work). Instead, I have attempted to loosely follow the HelloFresh theme.
+
+## Actual Time
+
+- 50 minutes to setup a new React-Native project and get things up & running
+- 90 minutes to code, developer test the functionalities, look into the bug in the NPM package(react-native-contacts)
+- 30 minutes to cleanup, review and add comments 
 
 # Getting Started
 

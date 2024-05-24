@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -6,13 +6,15 @@ import {
   PermissionsAndroid,
   FlatList,
   StyleSheet,
-  Image,
 } from 'react-native';
 import Contacts, { Contact } from 'react-native-contacts';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import globalStyles from '../common/globalStyles';
 import { isAndroid } from '../common/utils';
+import ContactListItem from '../components/molecules/ContactListItem';
+import { ContactsAccessPermissionsAndroid } from '../common/constants';
+import { Colors } from '../common/colors';
 
 type RootStackParamList = {
   Home: undefined;
@@ -24,18 +26,23 @@ type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 const HomeScreen: React.FC = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
-  const navigation = useNavigation<HomeScreenNavigationProp>();
+  const { navigate } = useNavigation<HomeScreenNavigationProp>();
 
   useEffect(() => {
     requestContactsPermission();
-  }, []);
+  });
+
+  useFocusEffect(
+    useCallback(() => {
+      loadContacts();
+    }, []),
+  );
 
   const requestContactsPermission = async () => {
     if (isAndroid) {
-      const granted = await PermissionsAndroid.requestMultiple([
-        PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-        PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS,
-      ]);
+      const granted = await PermissionsAndroid.requestMultiple(
+        ContactsAccessPermissionsAndroid,
+      );
       if (
         granted[PermissionsAndroid.PERMISSIONS.READ_CONTACTS] ===
         PermissionsAndroid.RESULTS.GRANTED
@@ -49,24 +56,19 @@ const HomeScreen: React.FC = () => {
 
   const loadContacts = () => {
     Contacts.getAll()
-      .then(contacts => {
-        setContacts(contacts);
+      .then(phoneContacts => {
+        setContacts(phoneContacts);
       })
       .catch(e => {
         console.log(e);
       });
   };
 
-  const getInitials = (name: string) => {
-    const nameParts = name.split(' ');
-    return nameParts.map(part => part.charAt(0)).join('');
-  };
-
   return (
     <View style={globalStyles.container}>
       <TouchableOpacity
         style={[globalStyles.primaryButton, globalStyles.mB20]}
-        onPress={() => navigation.navigate('AddContact')}>
+        onPress={() => navigate('AddContact')}>
         <Text style={globalStyles.primaryButtonText}>Add Contact</Text>
       </TouchableOpacity>
       <Text style={styles.title}>Contacts</Text>
@@ -74,32 +76,17 @@ const HomeScreen: React.FC = () => {
         data={contacts}
         keyExtractor={item => item.recordID}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.contactItem}
-            onPress={() =>
-              navigation.navigate('ContactDetails', { contact: item })
-            }>
-            <View style={styles.contactInfo}>
-              {item.thumbnailPath ? (
-                <Image
-                  source={{ uri: item.thumbnailPath }}
-                  style={styles.contactPhoto}
-                />
-              ) : (
-                <View style={styles.contactPhotoPlaceholder}>
-                  <Text style={styles.contactInitials}>
-                    {getInitials(item.givenName)}
-                  </Text>
-                </View>
-              )}
-              <View style={styles.contactDetails}>
-                <Text style={styles.contactName}>
-                  {item.givenName} {item.familyName}
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
+          <ContactListItem
+            contact={item}
+            onPress={() => navigate('ContactDetails', { contact: item })}
+          />
         )}
+        initialNumToRender={20}
+        maxToRenderPerBatch={20}
+        windowSize={10}
+        ListEmptyComponent={
+          <Text style={styles.emptyMessage}>No contacts available.</Text>
+        }
       />
     </View>
   );
@@ -111,47 +98,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     fontFamily: 'Agrandir, sans-serif',
+    color: Colors.LIGHTER_GREY_60,
   },
-  contactText: {
-    fontSize: 18,
-    paddingVertical: 5,
-    color: '#067A46',
-    fontFamily: 'Agrandir, sans-serif',
-  },
-  contactItem: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-    paddingVertical: 5,
-  },
-  contactInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  contactPhoto: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 10,
-  },
-  contactPhotoPlaceholder: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 10,
-    backgroundColor: '#ccc',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  contactInitials: {
-    fontSize: 20,
-    color: '#fff',
-  },
-  contactDetails: {
-    flex: 1,
-  },
-  contactName: {
-    fontSize: 18,
-    color: '#067A46',
+  emptyMessage: {
+    fontSize: 16,
+    color: Colors.PRIMARY,
+    textAlign: 'center',
+    marginTop: 20,
     fontFamily: 'Agrandir, sans-serif',
   },
 });
