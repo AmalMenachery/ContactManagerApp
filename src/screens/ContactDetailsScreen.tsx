@@ -35,8 +35,8 @@ const ContactDetailsScreen: React.FC = () => {
   const [name, setName] = useState(contact.givenName);
   const [email, setEmail] = useState(contact.emailAddresses[0]?.email || '');
   const [phone, setPhone] = useState(contact.phoneNumbers[0]?.number || '');
-  const [photo, setPhoto] = useState<string | null>(
-    contact.thumbnailPath || null,
+  const [photo, setPhoto] = useState<string | undefined>(
+    contact.thumbnailPath || undefined,
   );
 
   const updateContact = () => {
@@ -102,19 +102,14 @@ const ContactDetailsScreen: React.FC = () => {
           <Text style={globalStyles.primaryButtonText}>Choose Photo</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[globalStyles.primaryButton, { marginLeft: 10 }]}
+          style={[globalStyles.primaryButton, globalStyles.mL10]}
           onPress={takePhoto}>
           <Text style={globalStyles.primaryButtonText}>Take Photo</Text>
         </TouchableOpacity>
       </View>
-      {photo && (
-        <Image
-          source={{ uri: photo }}
-          style={{ width: 100, height: 100, marginTop: 20 }}
-        />
-      )}
+      {photo && <Image source={{ uri: photo }} style={styles.imageStyle} />}
       <TouchableOpacity
-        style={[globalStyles.primaryButton, { marginTop: 20 }]}
+        style={[globalStyles.primaryButton, globalStyles.mT20]}
         onPress={updateContact}>
         <Text style={globalStyles.primaryButtonText}>Update Contact</Text>
       </TouchableOpacity>
@@ -127,6 +122,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 20,
   },
+  imageStyle: { width: 100, height: 100, marginTop: 20 },
 });
 
 export default ContactDetailsScreen;

@@ -19,7 +19,6 @@ const globalStyles = StyleSheet.create({
   },
   headerText: {
     fontSize: 20,
-    fontWeight: 700,
     fontFamily: 'Agrandir, sans-serif',
   },
   input: {
@@ -29,7 +28,6 @@ const globalStyles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 5,
     fontFamily: 'Agrandir, sans-serif',
-    fontWeight: 700,
   },
   container: {
     flex: 1,

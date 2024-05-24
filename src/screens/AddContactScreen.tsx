@@ -93,19 +93,14 @@ const AddContactScreen: React.FC = () => {
           <Text style={globalStyles.primaryButtonText}>Choose Photo</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[globalStyles.primaryButton, { marginLeft: 10 }]}
+          style={[globalStyles.primaryButton, globalStyles.mL10]}
           onPress={takePhoto}>
           <Text style={globalStyles.primaryButtonText}>Take Photo</Text>
         </TouchableOpacity>
       </View>
-      {photo && (
-        <Image
-          source={{ uri: photo }}
-          style={{ width: 100, height: 100, marginTop: 20 }}
-        />
-      )}
+      {photo && <Image source={{ uri: photo }} style={styles.imageStyle} />}
       <TouchableOpacity
-        style={[globalStyles.primaryButton, { marginTop: 20 }]}
+        style={[globalStyles.primaryButton, globalStyles.mT20]}
         onPress={addContact}>
         <Text style={globalStyles.primaryButtonText}>Add Contact</Text>
       </TouchableOpacity>

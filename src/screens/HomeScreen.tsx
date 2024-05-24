@@ -6,6 +6,7 @@ import {
   PermissionsAndroid,
   FlatList,
   StyleSheet,
+  Image,
 } from 'react-native';
 import Contacts, { Contact } from 'react-native-contacts';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -31,18 +32,17 @@ const HomeScreen: React.FC = () => {
 
   const requestContactsPermission = async () => {
     if (isAndroid) {
-      const granted = await PermissionsAndroid.request(
+      const granted = await PermissionsAndroid.requestMultiple([
         PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-
-        {
-          title: 'Contacts Permission',
-          message: 'This app would like to view/edit your contacts.',
-          buttonPositive: 'Accept',
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS,
+      ]);
+      if (
+        granted[PermissionsAndroid.PERMISSIONS.READ_CONTACTS] ===
+        PermissionsAndroid.RESULTS.GRANTED
+      ) {
         loadContacts();
       }
+      console.log({ granted });
     } else {
       loadContacts();
     }
@@ -124,17 +124,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
     paddingVertical: 5,
   },
-  // title: {
-  //   fontSize: 24,
-  //   fontWeight: 'bold',
-  //   marginBottom: 20,
-  //   fontFamily: 'Agrandir, sans-serif',
-  // },
-  // contactItem: {
-  //   borderBottomWidth: 1,
-  //   borderBottomColor: '#ccc',
-  //   paddingVertical: 10,
-  // },
   contactInfo: {
     flexDirection: 'row',
     alignItems: 'center',
