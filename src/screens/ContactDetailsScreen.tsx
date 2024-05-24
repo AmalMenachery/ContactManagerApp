@@ -87,7 +87,7 @@ const ContactDetailsScreen: React.FC = () => {
         placeholder="Name"
         value={name}
         onChangeText={setName}
-        placeholderTextColor={Colors.LIGHTER_GREY}
+        placeholderTextColor={Colors.LIGHTER_GREY_60}
       />
       <TextInput
         style={globalStyles.input}
@@ -95,7 +95,7 @@ const ContactDetailsScreen: React.FC = () => {
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
-        placeholderTextColor={Colors.LIGHTER_GREY}
+        placeholderTextColor={Colors.LIGHTER_GREY_60}
       />
       <TextInput
         style={globalStyles.input}
@@ -103,6 +103,7 @@ const ContactDetailsScreen: React.FC = () => {
         value={phone}
         onChangeText={setPhone}
         keyboardType="phone-pad"
+        placeholderTextColor={Colors.LIGHTER_GREY_60}
       />
       <View style={styles.photoButtonsContainer}>
         <TouchableOpacity

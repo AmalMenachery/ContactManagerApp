@@ -12,6 +12,7 @@ import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import globalStyles from '../common/globalStyles';
+import { Colors } from '../common/colors';
 
 type RootStackParamList = {
   Home: undefined;
@@ -72,6 +73,7 @@ const AddContactScreen: React.FC = () => {
         placeholder="Name"
         value={name}
         onChangeText={setName}
+        placeholderTextColor={Colors.LIGHTER_GREY_60}
       />
       <TextInput
         style={globalStyles.input}
@@ -79,6 +81,7 @@ const AddContactScreen: React.FC = () => {
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
+        placeholderTextColor={Colors.LIGHTER_GREY_60}
       />
       <TextInput
         style={globalStyles.input}
@@ -86,6 +89,7 @@ const AddContactScreen: React.FC = () => {
         value={phone}
         onChangeText={setPhone}
         keyboardType="phone-pad"
+        placeholderTextColor={Colors.LIGHTER_GREY_60}
       />
       <View style={styles.photoButtonsContainer}>
         <TouchableOpacity

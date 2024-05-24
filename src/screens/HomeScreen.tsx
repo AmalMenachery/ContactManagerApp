@@ -81,7 +81,7 @@ const HomeScreen: React.FC = () => {
             onPress={() => navigate('ContactDetails', { contact: item })}
           />
         )}
-        initialNumToRender={20}
+        initialNumToRender={10}
         maxToRenderPerBatch={20}
         windowSize={10}
         ListEmptyComponent={
